@@ -1,0 +1,4 @@
+#parameters 37.545351 M
+Successfully load pretrained model from code/lepard-main/pretrained/3dmatch/model_best_loss.pth!
+Current best loss 2.4455087184906006
+Current best recall 0.9337871287128713
