@@ -79,7 +79,7 @@ class _3DMatchTester(Trainer):
                         inputs[k] = v.to(self.device)
                 if self.timers: self.timers.toc('load batch')
                 ##################################
-
+                
                 batched_rot = inputs.get("batched_rot")
                 batched_trn = inputs.get("batched_trn")
                 gt_trn = compute_matrix(batched_rot[0], batched_trn[0])
@@ -95,8 +95,10 @@ class _3DMatchTester(Trainer):
                 rot, trn = MML.ransac_regist_coarse(data['s_pcd'], data['t_pcd'], data['src_mask'], data['tgt_mask'], match_pred, self.config.iteration)
 
                 pred_trn = compute_matrix(rot[0], trn[0])
-                src_pcd = MML.tensor2numpy( data['s_pcd'])
-                rmse = compute_RMSE(src_pcd[0], gt_trn, pred_trn)
+                src_pcd = data['src_pcd_list'][0].cpu().numpy()
+                ref_pcd = data['tgt_pcd_list'][0].cpu().numpy()
+                print(len(src_pcd), len(ref_pcd))
+                rmse = compute_RMSE(src_pcd, gt_trn, pred_trn)
                 print('rmse ', rmse)
                 rre, rte = compute_registration_error(gt_trn, pred_trn)
                 rre_total += rre

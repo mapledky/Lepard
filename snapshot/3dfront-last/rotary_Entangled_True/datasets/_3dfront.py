@@ -27,13 +27,13 @@ class _3DFront(Dataset):
 
         self.rot_factor = 1.
         self.augment_noise = config.augment_noise
-        self.max_points = 15000
-
+        self.max_points = config.max_points
+        print('max_points', self.max_points)
         self.overlap_radius = 0.0375
 
     def read_entries(self, split, data_root, d_slice=None, shuffle=True):
         if split == 'train':
-            file_s = [10000,2800,6000,2000]
+            file_s = [3000,2800,3000,2000]
             entries = self._build_data_list(os.path.join(data_root, 'pro25/high'), file_s[0])
             entries.extend(self._build_data_list(os.path.join(data_root, 'pro25/low'), file_s[1]))
             entries.extend(self._build_data_list(os.path.join(data_root, 'pro40/high'), file_s[2]))
@@ -49,7 +49,7 @@ class _3DFront(Dataset):
             if d_slice:
                 entries = entries[:d_slice]
         else:
-            entries = sorted(glob.glob(os.path.join(os.path.join(data_root, self.config.test_name), '*')))
+            entries = self._build_data_list(os.path.join(data_root, self.config.test_name), 1000)
             if d_slice:
                 entries = entries[:d_slice]
         

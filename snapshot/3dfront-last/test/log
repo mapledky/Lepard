@@ -1,4 +1,4 @@
 #parameters 37.545351 M
-Successfully load pretrained model from code/lepard-main/pretrained/3dmatch/model_best_loss.pth!
+Successfully load pretrained model from code/lepard-main/snapshot/3dfront-last/rotary_Entangled_True/checkpoints/model_19_epoch_model_loss_0.5289060473442078.pth!
 Current best loss 2.4455087184906006
 Current best recall 0.9337871287128713

@@ -80,13 +80,13 @@ verbose: True
 verbose_freq: 1000
 do_valid: True
 do_test: True
-pretrain: 'code/lepard-main/pretrained/3dmatch/model_best_loss.pth'
+pretrain: 'code/lepard-main/snapshot/3dfront-last/rotary_Entangled_True/checkpoints/model_19_epoch_model_loss_0.5289060473442078.pth'
 
 
 # optimiser:
 optimizer: SGD
 max_epoch: 1500
-lr: 0.015
+lr: 0.00001
 weight_decay: 0.000001
 momentum: 0.93
 scheduler: ExpLR
@@ -95,6 +95,7 @@ scheduler_freq: 1
 iter_size: 1
 
 #ransac
+ransac_points: 3
 iteration: 1000
 
 distributed: False
@@ -108,9 +109,10 @@ dataset: 3dfront
 folder: -last
 batch_size: 1
 num_workers: 1
+max_points: 20000
 augment_noise: 0.005
-data_root: dataset/3D-Deforming-FRONT-v4/rawdata/
-test_name: pro40/high
+data_root: dataset/3D-Deforming-FRONT-v3/rawdata/
+test_name: pro25/high
 split: {
   "train": configs/indoor/train_info.pkl,
   "val": configs/indoor/val_info.pkl,

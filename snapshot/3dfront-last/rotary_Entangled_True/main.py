@@ -19,7 +19,6 @@ import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 
 """
-python -m torch.distributed.launch --nproc_per_node 2 code/lepard-main/main.py code/lepard-main/configs/train/3dfront.yaml
 python code/lepard-main/main.py code/lepard-main/configs/train/3dfront.yaml
 python code/lepard-main/main.py code/lepard-main/configs/test/3dfront.yaml
 """
@@ -139,7 +138,7 @@ if __name__ == '__main__':
         config.test_loader, _ = get_dataloader(test_set, config, shuffle=False, neighborhood_limits=neighborhood_limits)
     # config.desc_loss = MetricLoss(config)
     config.desc_loss = MatchMotionLoss (config['train_loss'])
-
+    print('lrate ', config.lr)
     trainer = get_trainer(config)
 
     if(config.mode=='train'):

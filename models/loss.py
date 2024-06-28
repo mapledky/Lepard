@@ -357,7 +357,7 @@ class MatchMotionLoss(nn.Module):
 
 
     @staticmethod
-    def ransac_regist_coarse(batched_src_pcd, batched_tgt_pcd, src_mask, tgt_mask, match_pred , iteration=1000):
+    def ransac_regist_coarse(batched_src_pcd, batched_tgt_pcd, src_mask, tgt_mask, match_pred ,ransac_n=3, iteration=1000):
         s_len = src_mask.sum(dim=1).int()
         t_len = tgt_mask.sum(dim=1).int()
         bsize = len(batched_src_pcd)
@@ -384,7 +384,7 @@ class MatchMotionLoss(nn.Module):
             ind = match_pred[pair_i]
             s_ind, t_ind = ind[:, 1], ind[:, 2]
 
-            pose = ransac_pose_estimation(s_pcd, t_pcd, [s_ind, t_ind], distance_threshold=0.05, iteration=iteration)
+            pose = ransac_pose_estimation(s_pcd, t_pcd, [s_ind, t_ind], distance_threshold=0.05,ransac_n=3, iteration=iteration)
             pose = pose.copy()
             rot.append(torch.from_numpy(pose[:3,:3]))
             trn.append(torch.from_numpy(pose[:3,3:]))
